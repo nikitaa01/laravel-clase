@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\CountriesValidation;
 use App\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CountriesController extends Controller
 {
@@ -62,6 +63,7 @@ class CountriesController extends Controller
      */
     public function show(Country $country)
     {
+        $country->langs;
         return response()->json($country);
     }
 
@@ -90,5 +92,32 @@ class CountriesController extends Controller
     {
         $country->delete();
         return response()->noContent();
+    }
+
+    public function getByContinent($continent)
+    {
+        $countries = DB::table('country')
+            ->where('Continent', '=', $continent)
+            ->get();
+        return response()->json($countries);
+    }
+
+    public function orderBySize()
+    {
+        $countries = DB::table('country')
+            ->orderBy('SurfaceArea', 'desc')
+            ->select('Name', 'SurfaceArea')
+            ->get();
+        return response()->json($countries);
+    }
+
+    public function withZeroCities()
+    {
+        $countries = DB::table('country')
+            ->join('city', 'country.Code', '=', 'city.CountryCode')
+            ->groupBy('country.code')
+            ->select('country.Name')
+            ->get();
+        return response()->json($countries);
     }
 }

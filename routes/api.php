@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\CitiesController;
+use App\Http\Controllers\LangsController;
 use GuzzleHttp\Middleware;
 
 /*
@@ -29,6 +30,11 @@ Route::get('/calculadora/resta/{num1}/{num2}', [CalculadoraController::class, 'r
 Route::get('/calculadora/multiplicacion/{num1}/{num2}', [CalculadoraController::class, 'multiplicacion']);
 Route::get('/calculadora/division/{num1}/{num2}', [CalculadoraController::class, 'division']);
 Route::get('/calculadora/potencia/{num1}/{num2}', [CalculadoraController::class, 'potencia']); */
+Route::get('/country/by-continent/{Continent}', [CountriesController::class, 'getByContinent']);
+Route::get('/country/order-by-size', [CountriesController::class, 'orderBySize']);
+Route::get('/country/with-zero-cities', [CountriesController::class, 'withZeroCities']);
 Route::apiResource('/country', CountriesController::class);
 
 Route::apiResource('/city', CitiesController::class);
+
+Route::apiResource('/lang', LangsController::class);
