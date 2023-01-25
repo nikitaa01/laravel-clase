@@ -27,7 +27,8 @@ class Lang extends Model
     public function countries()
     {
         return $this->belongsToMany(Country::class, 'countrylanguage', 'Language', 'CountryCode')
-            ->withPivot(['isOfficial', 'Percentage']);
+            ->withPivot(['isOfficial', 'Percentage'])
+            ->as('CountryLanguage');
     }
 
     // Els atributs que volem que es puguin canviar en massa.

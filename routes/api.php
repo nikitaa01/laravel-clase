@@ -33,6 +33,8 @@ Route::get('/calculadora/potencia/{num1}/{num2}', [CalculadoraController::class,
 Route::get('/country/by-continent/{Continent}', [CountriesController::class, 'getByContinent']);
 Route::get('/country/order-by-size', [CountriesController::class, 'orderBySize']);
 Route::get('/country/with-zero-cities', [CountriesController::class, 'withZeroCities']);
+Route::get('/country/independence-null', [CountriesController::class, 'independenceNull']);
+Route::get('/country/independence/{year1}/{year2}-', [CountriesController::class, 'independenceNull']);
 Route::apiResource('/country', CountriesController::class);
 
 Route::apiResource('/city', CitiesController::class);

@@ -114,9 +114,17 @@ class CountriesController extends Controller
     public function withZeroCities()
     {
         $countries = DB::table('country')
-            ->join('city', 'country.Code', '=', 'city.CountryCode')
-            ->groupBy('country.code')
-            ->select('country.Name')
+            ->leftJoin('city', 'country.Code', '=', 'city.CountryCode')
+            ->whereNull('city.countrycode')
+            ->select('country.name')
+            ->get();
+        return response()->json($countries);
+    }
+
+    public function independenceNull()
+    {
+        $countries = DB::table('country')
+            ->whereNull('IndepYear')
             ->get();
         return response()->json($countries);
     }
