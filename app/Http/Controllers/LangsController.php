@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\LangsValidation;
 use App\Models\Lang;
 use Illuminate\Http\Request;
 
 class LangsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(
+            LangsValidation::class,
+            ['only' => ['store', 'update']]
+        );
+    }
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +37,11 @@ class LangsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $allRequest = [];
+        $allRequest['lang'] = ucfirst($request->all()['lang']);
+        $lang = Lang::create($allRequest);
+        $lang->save();
+        return response()->json($lang);
     }
 
     /**
@@ -53,7 +65,10 @@ class LangsController extends Controller
      */
     public function update(Request $request, Lang $lang)
     {
-        //
+        $allRequest = [];
+        $allRequest['lang'] = ucfirst($request->all()['lang']);
+        $lang->fill($allRequest)->save();
+        return response()->json($lang);
     }
 
     /**
@@ -64,6 +79,7 @@ class LangsController extends Controller
      */
     public function destroy(Lang $lang)
     {
-        //
+        $lang->delete();
+        return response()->json($lang);
     }
 }

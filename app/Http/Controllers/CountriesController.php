@@ -128,4 +128,19 @@ class CountriesController extends Controller
             ->get();
         return response()->json($countries);
     }
+
+    public function independenceBetween($year1, $year2)
+    {
+        $countries = DB::table('country')
+            ->whereBetween('IndepYear', [$year1, $year2])
+            ->get();
+        return response()->json($countries);
+    }
+
+    public function startsWith($letter)
+    {
+        $countries = DB::table('country')
+            ->get();
+        return response()->json($countries);
+    }
 }

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 
-class CountriesValidation
+class LangsValidation
 {
     /**
      * Handle an incoming request.
@@ -18,23 +18,11 @@ class CountriesValidation
      */
     public function handle(Request $request, Closure $next)
     {
+        $allRequest = $request->all();
         $validated = Validator::make(
-            $request->all(),
+            $allRequest,
             [
-                'Name' => 'required|string',
-                'Continent' => 'required|string',
-                'Region' => 'required|string',
-                'SurfaceArea' => 'required|numeric|gt:0',
-                'IndepYear' => 'required|numeric|gt:0',
-                'Population' => 'required|numeric|gt:0',
-                'LifeExpectancy' => 'required|numeric|gt:0',
-                'GNP' => 'required|numeric|gt:0',
-                'GNPOld' => 'required|numeric|gt:0',
-                'LocalName' => 'required|string',
-                'GovernmentForm' => 'required|string',
-                'HeadOfState' => 'required|string',
-                'Capital' => 'required|numeric|gt:0',
-                'Code2' => 'required|string',
+                'lang' => 'required|string'
             ]
         );
         if ($validated->fails()) {
