@@ -41,3 +41,6 @@ Route::apiResource('/country', CountriesController::class);
 Route::apiResource('/city', CitiesController::class);
 
 Route::apiResource('/lang', LangsController::class);
+
+Route::apiResource('/user', UserController::class);
+Route::post('/user/login', [UserController::class, 'login']);
